@@ -9,7 +9,7 @@ export const schema: schema_def = {
     },
     name: {
         type: 'VARCHAR(256)',
-        is_primary: true,
+        is_primary: false,
     },
     capacity: {
         type: 'INT',
@@ -20,11 +20,9 @@ export const schema: schema_def = {
 export async function create_table ( client: pg.Client | pg.Pool | pg.PoolClient ) {
     return await client.query(
         'CREATE TABLE IF NOT EXISTS transport ( \n' +
-        'type VARCHAR(256) UNIQUE NOT NULL, \n' +
-        'name VARCHAR(256) UNIQUE NOT NULL, \n' +
-        'capacity INT, \n' +
-        'UNIQUE ( type, name ),\n' +
-        'PRIMARY KEY ( type, name )\n' +
+        'name VARCHAR(256) PRIMARY KEY UNIQUE NOT NULL, \n' +
+        'type VARCHAR(256), \n' +
+        'capacity INT \n' +
         ');',
     );
 }
@@ -34,7 +32,7 @@ export async function drop_table ( client: pg.Client | pg.Pool | pg.PoolClient )
 }
 
 export async function select ( client: pg.Client | pg.Pool | pg.PoolClient, args: any ) {
-    return await client.query( 'SELECT * FROM transport WHERE (type = $1 AND name = $2);', [args.type, args.name] );
+    return await client.query( 'SELECT * FROM transport WHERE name = $2;', [args.name] );
 }
 
 export async function insert ( client: pg.Client | pg.Pool | pg.PoolClient, args: any ) {
@@ -42,9 +40,9 @@ export async function insert ( client: pg.Client | pg.Pool | pg.PoolClient, args
 }
 
 export async function update ( client: pg.Client | pg.Pool | pg.PoolClient, args: any ) {
-    return await client.query( 'UPDATE transport SET capacity = $3 WHERE (type = $1 AND name = $2);', [args.type, args.name, args.capacity] );
+    return await client.query( 'UPDATE transport SET capacity = $3, type = $1 WHERE name = $2);', [args.type, args.name, args.capacity] );
 }
 
 export async function del ( client: pg.Client | pg.Pool | pg.PoolClient, args: any ) {
-    return await client.query( 'DELETE FROM transport WHERE (type = $1 AND name = $2);', [args.type, args.name] );
+    return await client.query( 'DELETE FROM transport WHERE name = $2;', [args.name] );
 }

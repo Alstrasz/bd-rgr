@@ -1,20 +1,23 @@
-<h3>Quick start project for electrong back and angular front.</h3>
-<p>Includes electron-builder and typescript for back.</p>
-<p>Includes bulma, electron, ngx-translate for front.</p>
+<p>
+Simple project to work with postgresql database <br>
+Uses settings: <br>
+host: '127.0.0.1'
+database: 'db-rgr'
+port: 5432
 
-<p>It is two package.json project. Backend package in the root, frontend pakcage in ./front</p>
+( default username, no password )
+</p>
 
 <p>
     <ul>
     Stepst to build from scratch:
         <li>npm i</li>
         <li>npm --prefix=front i</li>
-        <li>npm run build-all</li>
+        <li>npm run all:compile</li>
         <li>Now you can launch appimage in ./release directory</li>
     </ul>
 <p>
 
-<p>To add new translation, create .json file in ./front/assets/i18n/ and include it in ./front/src/app/translate-universal-loader.service.ts like others</p>
-
-
-//to be continued
+<p>
+May requier: node, typescript globally, angular globally, electron globally. Last three can be installed from npm with -g flag
+</p>

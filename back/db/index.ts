@@ -124,16 +124,24 @@ export class db {
     async run_query ( table: string, query_type: string, args: any ) {
         switch ( query_type ) {
         case 'select':
-            return table_dict[table].select( this.pool, args );
+            return table_dict[table].select( this.pool, args ).then( ( val: any ) => {
+                return val.rows;
+            } );
             break;
         case 'insert':
-            return table_dict[table].insert( this.pool, args );
+            return table_dict[table].insert( this.pool, args ).then( ( val: any ) => {
+                return val.rows;
+            } );
             break;
         case 'delete':
-            return table_dict[table].del( this.pool, args );
+            return table_dict[table].del( this.pool, args ).then( ( val: any ) => {
+                return val.rows;
+            } );
             break;
         case 'update':
-            return table_dict[table].update( this.pool, args );
+            return table_dict[table].update( this.pool, args ).then( ( val: any ) => {
+                return val.rows;
+            } );
             break;
         default:
             throw new Error( 'Unknown query type' );
