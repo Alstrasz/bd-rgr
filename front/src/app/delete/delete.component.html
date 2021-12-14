@@ -1,6 +1,9 @@
 <div *ngFor="let prop of schema | keyvalue">
     <div *ngIf="prop.value.is_primary">
-        {{prop.key}}: <input [(ngModel)]="args[prop.key]" type="text"> -- {{prop.value.type}} IS PRIMARY
+        {{prop.key}}: 
+        <input *ngIf="prop.value.type != 'INT'" [(ngModel)]="args[prop.key]" type="text">
+        <input *ngIf="prop.value.type == 'INT'" [(ngModel)]="args[prop.key]" type="number" (keypress)="number_only($event)">
+        -- {{prop.value.type}} IS PRIMARY
     </div>
     <div *ngIf="!prop.value.is_primary">
 
