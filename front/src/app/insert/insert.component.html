@@ -1,0 +1,10 @@
+<div *ngFor="let prop of schema | keyvalue">
+    <div *ngIf="prop.value.is_primary">
+        {{prop.key}}: <input [(ngModel)]="args[prop.key]" type="text"> -- {{prop.value.type}} IS PRIMARY
+    </div>
+    <div *ngIf="!prop.value.is_primary">
+        {{prop.key}}: <input [(ngModel)]="args[prop.key]" type="text"> -- {{prop.value.type}}
+    </div>
+</div>
+
+<button (click)="send()">Insert</button>

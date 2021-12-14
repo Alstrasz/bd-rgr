@@ -1,0 +1,27 @@
+<button (click)="create_tables()">Create tables</button>
+<button (click)="drop_tabels()">Drop tables</button>
+
+<p>
+    Table: 
+    <select [(ngModel)]='active_table' (ngModelChange)="table_change()">
+        <option *ngFor="let prop of table_names" (value)="prop">{{prop}}</option>
+    </select>
+</p>
+<p>
+    Mode: 
+    <select [(ngModel)]='active_query'>
+        <option *ngFor="let prop of query_types" (value)="prop">{{prop}}</option>
+    </select>
+</p>
+
+<p>
+    <app-delete *ngIf='active_query == "delete"' [schema]="schema" [active_table]="active_table"></app-delete>
+    <app-insert *ngIf='active_query == "insert"' [schema]="schema" [active_table]="active_table"></app-insert>
+    <app-select *ngIf='active_query == "select"' [schema]="schema" [active_table]="active_table"></app-select>
+    <app-update *ngIf='active_query == "update"' [schema]="schema" [active_table]="active_table"></app-update>
+</p>
+
+<p>
+    Latest query result: <br>
+    {{ query_result }}
+</p>
